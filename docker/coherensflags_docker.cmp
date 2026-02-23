@@ -1,0 +1,11 @@
+# Docker-specific compiler and library paths for COHERENS
+CPPDFLAGS = -DCDF
+
+PHYSMOD = COHERENS/code/physics
+SEDMOD = COHERENS/code/sediment
+BIOMOD = COHERENS/code/biology
+FABMOD = COHERENS/code/cofabm
+PARMOD = COHERENS/code/tracers
+
+FCIFLAGS = -I/usr/include
+FLIB_FILES = -L/usr/lib/x86_64-linux-gnu -lnetcdff -lnetcdf

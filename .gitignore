@@ -1,0 +1,9 @@
+# pixi environments
+.pixi/*
+!.pixi/config.toml
+
+# local run artifacts
+runs/
+outputs/
+notebooks/.ipynb_checkpoints/
+__pycache__/

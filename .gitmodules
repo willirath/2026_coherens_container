@@ -1,0 +1,3 @@
+[submodule "coherens"]
+	path = coherens
+	url = https://gitlab.naturalsciences.be/ecomod/coherens_v3.git

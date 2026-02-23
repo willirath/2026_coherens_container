@@ -1,0 +1,23 @@
+[workspace]
+authors = ["Willi Rath <wrath@geomar.de>"]
+channels = ["conda-forge"]
+name = "2026_coherens_container"
+platforms = ["osx-arm64"]
+version = "0.1.0"
+
+[tasks]
+[tasks.build-image]
+cmd = ["docker", "build", "-t", "coherens-local", "."]
+
+[tasks.experiment]
+cmd = ["python", "scripts/run_experiment.py"]
+
+[tasks.harvest]
+cmd = ["bash", "scripts/harvest_outputs.sh"]
+
+[dependencies]
+netcdf4 = ">=1.7.4,<2"
+matplotlib = ">=3.10.8,<4"
+xarray = ">=2026.2.0,<2027"
+numpy = ">=2.4.2,<3"
+notebook = ">=7.3.1,<8"
