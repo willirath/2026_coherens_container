@@ -16,14 +16,15 @@ RUN apt-get update \
        time \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /opt/2026_coherens_container
-COPY . .
+COPY coherens/ /opt/coherens/
+COPY setups/ /opt/coherens/setups/
+COPY docker/ /docker/
 
-ENV COHERENS_ROOT=/opt/2026_coherens_container/coherens \
-    COHERENS_FLAGS_FILE=/opt/2026_coherens_container/docker/coherensflags_docker.cmp
+ENV COHERENS_ROOT=/opt/coherens \
+    COHERENS_FLAGS_FILE=/docker/coherensflags_docker.cmp
 
 WORKDIR /workspace
 RUN mkdir -p /workspace/runs
 
-ENTRYPOINT ["/opt/2026_coherens_container/docker/run_setup.sh"]
-CMD ["tutorial/river"]
+ENTRYPOINT ["/docker/run_setup.sh"]
+CMD ["seamount_smoke"]

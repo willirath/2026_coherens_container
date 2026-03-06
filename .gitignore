@@ -3,7 +3,8 @@
 !.pixi/config.toml
 
 # local run artifacts
-runs/
+runs/*
+!runs/.gitkeep
 outputs/
 notebooks/.ipynb_checkpoints/
 __pycache__/

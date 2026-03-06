@@ -2,19 +2,19 @@
 
 ## Project Structure & Module Organization
 - `coherens/`: git submodule containing the full COHERENS v3 source tree (physics, sediment, biology, tracers, utilities, and the official `setups/`). Treat this directory as upstream; never edit it directly without going through their repo.
-- `docker/`: helper artifacts for containerized development (`docker_run_setup.sh` entrypoint and `coherensflags_docker.cmp`). Extend this area with additional tooling scripts or config snippets.
+- `docker/`: container entrypoint (`run_setup.sh`) and compiler flags (`coherensflags_docker.cmp`). These are copied to `/docker/` inside the image.
 - `Dockerfile` & `.dockerignore`: build context for the runtime image. Local experiment outputs belong in `runs/` (ignored by Docker and Git); mount it into the container to persist builds.
 
 ## Build, Test, and Development Commands
 - `docker build -t coherens-local .` — builds the Debian/gfortran image that ships the submodule and tooling.
 - `docker run --rm -v $(pwd)/runs:/workspace/runs coherens-local tutorial/river` — stages and runs a bundled case inside the container, reusing cached artifacts from `runs/`.
-- `docker run --rm -it -v $(pwd):/opt/2026_coherens_container coherens-local sedrough bash` — drop into a shell with your live checkout mounted; handy for debugging custom setups.
+- `docker run --rm -it -v $(pwd)/runs:/workspace/runs coherens-local seamount_smoke` — run the smoke test setup.
 - Inside the container, the helper script runs `make linux-gfort` by default. Override with `-e COHERENS_MAKE_TARGET=linux-gfort-g` or `-e COHERENS_LAUNCH=mpi` as needed.
 
 ## Coding Style & Naming Conventions
 - Keep shell helpers POSIX-compliant; use `set -euo pipefail` and provide clear environment variable knobs.
 - When authoring supplemental Fortran modules, match upstream COHERENS style: two-space indentation, uppercase subroutine names in comments, and descriptive `USE` blocks grouped at the top.
-- Follow existing naming patterns (`Usrdef_*` for user hooks, `COHERENS_*` paths for env vars) to avoid confusing the automation in `docker/docker_run_setup.sh`.
+- Follow existing naming patterns (`Usrdef_*` for user hooks, `COHERENS_*` paths for env vars) to avoid confusing the automation in `docker/run_setup.sh`.
 
 ## Testing Guidelines
 - Prefer running the smallest relevant setup (e.g., `tutorial/river`) before/after changes to verify the toolchain and physics compile.

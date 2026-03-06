@@ -1,3 +1,5 @@
 .git
 .gitmodules
 runs
+outputs
+.pixi
